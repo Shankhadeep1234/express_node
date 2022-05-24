@@ -1,9 +1,14 @@
+const path = require("path");
+
 function getMessages(req, res) {
-  res.send("<ul><li>Hello Shankhadeep</li></ul>");
+  res.sendFile(
+    path.join(__dirname, "..", "public", "images", "skimountain.jpg")
+  );
+  //res.send("<h4>Shankhadeep Bhadra</h4>");
 }
 
 function postMessage(req, res) {
-  console.log("Updating Messages.....");
+  console.log("Updating Messages");
 }
 
 module.exports = {
