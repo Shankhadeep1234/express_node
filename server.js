@@ -1,7 +1,7 @@
 const express = require("express");
 
-const friendsController = require("./controllers/friends.controller");
-const messagesController = require("./controllers/messages.controller");
+const friendsRouter = require("./routes/friends.router");
+const messagesRouter = require("./routes/messages.router");
 
 const app = express();
 
@@ -10,18 +10,16 @@ app.use((req, res, next) => {
   next();
   const delta = Date.now() - start;
   console.log(
-    `Method:${req.method} URL:${req.url} ${delta}ms took to complete the resquest`
+    `Method:${req.method} 
+URL:${req.baseUrl}${req.url}
+took ${delta}ms to complete the request`
   );
 });
 
 app.use(express.json());
 
-app.post("/friends", friendsController.postFriend);
-app.get("/friends", friendsController.getFriends);
-app.get("/friends/:friendId", friendsController.getFriend);
-
-app.get("/messages", messagesController.getMessages);
-app.post("/messages", messagesController.postMessage);
+app.use("/friends", friendsRouter);
+app.use("/messages", messagesRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
