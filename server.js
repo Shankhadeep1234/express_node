@@ -13,8 +13,17 @@ const friends = [
   },
 ];
 
+app.use((req, res, next) => {
+  const start = Date.now();
+  next();
+  const delta = Date.now() - start;
+  console.log(
+    `Method:${req.method} URL:${req.url} ${delta}ms took to complete the resquest`
+  );
+});
+
 app.get("/friends", (req, res) => {
-  res.json(friends);
+  res.status(200).json(friends);
 });
 
 app.get("/friends/:friendId", (req, res) => {
